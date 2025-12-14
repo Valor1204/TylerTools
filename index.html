@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-gray-900">My Toolkit</h1>
+            <p class="text-gray-600 mt-1">A collection of useful small tools</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Tool Selection -->
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="showTool('home')" id="btn-home" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">Home</button>
+                <button onclick="showTool('dog-walk')" id="btn-dog-walk" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Dog Walk Generator</button>
+                <button onclick="showTool('data-viewer')" id="btn-data-viewer" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Data Highlights</button>
+            </div>
+        </div>
+
+        <!-- Home View -->
+        <div id="tool-home" class="tool-container">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Welcome to My Toolkit</h2>
+                <p class="text-gray-600 mb-6">Select a tool from the buttons above to get started.</p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-400 cursor-pointer" onclick="showTool('dog-walk')">
+                        <h3 class="font-semibold text-lg mb-2">🐕 Dog Walk Generator</h3>
+                        <p class="text-gray-600 text-sm">Get random suggestions for nearby places to walk your dog</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-400 cursor-pointer" onclick="showTool('data-viewer')">
+                        <h3 class="font-semibold text-lg mb-2">📊 Data Highlights</h3>
+                        <p class="text-gray-600 text-sm">Click through and explore data highlights</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Walk Generator -->
+        <div id="tool-dog-walk" class="tool-container hidden">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Dog Walk Location Generator</h2>
+                <p class="text-gray-600 mb-6">Click the button to get a random suggestion for where to walk your dog nearby!</p>
+                
+                <button onclick="generateDogWalk()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 mb-6">
+                    Generate Random Location
+                </button>
+                
+                <div id="dog-walk-result" class="hidden">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h3 class="font-semibold text-lg mb-2">Suggested Location:</h3>
+                        <p id="dog-walk-location" class="text-xl font-medium text-blue-900 mb-2"></p>
+                        <p id="dog-walk-description" class="text-gray-700 mb-3"></p>
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Distance:</span> <span id="dog-walk-distance"></span> |
+                            <span class="font-medium">Type:</span> <span id="dog-walk-type"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Viewer -->
+        <div id="tool-data-viewer" class="tool-container hidden">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Data Highlights Viewer</h2>
+                <p class="text-gray-600 mb-6">Browse through data highlights one at a time</p>
+                
+                <div class="mb-6">
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200 rounded-lg p-8 min-h-[200px] flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3" id="highlight-title"></h3>
+                        <p class="text-lg text-gray-700 mb-4" id="highlight-value"></p>
+                        <p class="text-gray-600" id="highlight-description"></p>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <button onclick="previousHighlight()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300">
+                        ← Previous
+                    </button>
+                    <span class="text-gray-600" id="highlight-counter"></span>
+                    <button onclick="nextHighlight()" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-6xl mx-auto px-4 py-6 text-center text-gray-600 text-sm">
+            My Personal Toolkit • Built with ❤️
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function showTool(toolName) {
+            // Hide all tools
+            document.querySelectorAll('.tool-container').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Reset all buttons
+            document.querySelectorAll('button[id^="btn-"]').forEach(btn => {
+                btn.className = 'px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300';
+            });
+            
+            // Show selected tool
+            document.getElementById('tool-' + toolName).classList.remove('hidden');
+            
+            // Highlight active button
+            document.getElementById('btn-' + toolName).className = 'px-4 py-2 rounded-lg bg-blue-600 text-white font-medium';
+        }
+
+        // Dog Walk Generator
+        const dogWalkLocations = [
+            { name: "Riverside Park", description: "Beautiful river views with a paved path perfect for dogs", distance: "0.8 miles", type: "Park" },
+            { name: "Oak Street Trail", description: "Shaded woodland trail with gentle slopes", distance: "1.2 miles", type: "Trail" },
+            { name: "Meadowbrook Commons", description: "Open fields great for running and playing fetch", distance: "0.5 miles", type: "Field" },
+            { name: "Lakeside Loop", description: "Scenic loop around the lake with water access", distance: "2.1 miles", type: "Lake" },
+            { name: "Pine Grove Path", description: "Quiet neighborhood path through pine trees", distance: "0.9 miles", type: "Neighborhood" },
+            { name: "Downtown Square", description: "Social atmosphere with other dog walkers", distance: "0.6 miles", type: "Urban" },
+            { name: "Hilltop Vista", description: "Challenging climb with rewarding views", distance: "1.5 miles", type: "Hill" },
+            { name: "Beach Access Trail", description: "Sandy shores perfect for water-loving dogs", distance: "1.8 miles", type: "Beach" }
+        ];
+
+        function generateDogWalk() {
+            const location = dogWalkLocations[Math.floor(Math.random() * dogWalkLocations.length)];
+            
+            document.getElementById('dog-walk-location').textContent = location.name;
+            document.getElementById('dog-walk-description').textContent = location.description;
+            document.getElementById('dog-walk-distance').textContent = location.distance;
+            document.getElementById('dog-walk-type').textContent = location.type;
+            document.getElementById('dog-walk-result').classList.remove('hidden');
+        }
+
+        // Data Highlights Viewer
+        const dataHighlights = [
+            { title: "Total Users", value: "12,847", description: "Active users across all platforms this month" },
+            { title: "Revenue Growth", value: "+23%", description: "Year-over-year revenue increase" },
+            { title: "Customer Satisfaction", value: "4.8/5.0", description: "Average rating from customer surveys" },
+            { title: "Projects Completed", value: "156", description: "Successfully delivered projects this quarter" },
+            { title: "Response Time", value: "2.3 hours", description: "Average customer support response time" },
+            { title: "Team Members", value: "47", description: "Talented people working on our mission" }
+        ];
+
+        let currentHighlight = 0;
+
+        function updateHighlightDisplay() {
+            const highlight = dataHighlights[currentHighlight];
+            document.getElementById('highlight-title').textContent = highlight.title;
+            document.getElementById('highlight-value').textContent = highlight.value;
+            document.getElementById('highlight-description').textContent = highlight.description;
+            document.getElementById('highlight-counter').textContent = `${currentHighlight + 1} of ${dataHighlights.length}`;
+        }
+
+        function nextHighlight() {
+            currentHighlight = (currentHighlight + 1) % dataHighlights.length;
+            updateHighlightDisplay();
+        }
+
+        function previousHighlight() {
+            currentHighlight = (currentHighlight - 1 + dataHighlights.length) % dataHighlights.length;
+            updateHighlightDisplay();
+        }
+
+        // Initialize data viewer
+        updateHighlightDisplay();
+    </script>
+</body>
+</html>
