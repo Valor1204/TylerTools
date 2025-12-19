@@ -17,7 +17,7 @@
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div class="flex flex-wrap gap-2">
                     <a href="index.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Home</a>
-                    <a href="dog-walk.html" class="nav-link px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">Dog Walk Generator</a>
+                    <a href="dog-walk.html" class="nav-link px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">Dog Walking</a>
                     <a href="data-viewer.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Data Highlights</a>
                     <a href="waitress-stats.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Waitress Stats</a>
                 </div>
@@ -32,49 +32,120 @@
             <p class="text-gray-600 mb-6">Filter by distance and type, then click the button to get a random suggestion!</p>
 
             <!-- Filters -->
-            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 class="font-semibold text-gray-900 mb-3">Filters</h3>
+            <div class="mb-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-gray-900 text-lg">🔍 Filter Your Walk</h3>
+                    <button onclick="resetFilters()" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                        Reset All
+                    </button>
+                </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Distance Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Distance</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Distance</label>
                         <div class="space-y-2">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="distance-filter mr-2" value="short" checked>
-                                <span class="text-sm">Short</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="distance-filter hidden" value="short" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">📏</span>
+                                    <span class="filter-text">Short</span>
+                                </span>
                             </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="distance-filter mr-2" value="medium" checked>
-                                <span class="text-sm">Medium</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="distance-filter hidden" value="medium" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🚶</span>
+                                    <span class="filter-text">Medium</span>
+                                </span>
                             </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="distance-filter mr-2" value="long" checked>
-                                <span class="text-sm">Long</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="distance-filter hidden" value="long" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🏃</span>
+                                    <span class="filter-text">Long</span>
+                                </span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Type Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Type</label>
                         <div class="space-y-2">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="type-filter mr-2" value="Urban" checked>
-                                <span class="text-sm">Urban</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="type-filter hidden" value="Urban" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🏙️</span>
+                                    <span class="filter-text">Urban</span>
+                                </span>
                             </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="type-filter mr-2" value="Trail" checked>
-                                <span class="text-sm">Trail</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="type-filter hidden" value="Trail" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌲</span>
+                                    <span class="filter-text">Trail</span>
+                                </span>
                             </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="type-filter mr-2" value="Park" checked>
-                                <span class="text-sm">Park</span>
+                            <label class="filter-option">
+                                <input type="checkbox" class="type-filter hidden" value="Park" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌳</span>
+                                    <span class="filter-text">Park</span>
+                                </span>
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style>
+                .filter-option {
+                    display: block;
+                    cursor: pointer;
+                }
+
+                .filter-button {
+                    display: flex;
+                    align-items: center;
+                    padding: 0.75rem 1rem;
+                    background: white;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 0.5rem;
+                    transition: all 0.2s;
+                }
+
+                .filter-button:hover {
+                    border-color: #3b82f6;
+                    background: #eff6ff;
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+
+                .filter-icon {
+                    font-size: 1.25rem;
+                    margin-right: 0.75rem;
+                }
+
+                .filter-text {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: #374151;
+                }
+
+                input:checked + .filter-button {
+                    background: #3b82f6;
+                    border-color: #2563eb;
+                }
+
+                input:checked + .filter-button .filter-text {
+                    color: white;
+                }
+
+                input:checked + .filter-button {
+                    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+                }
+            </style>
 
             <button onclick="generateDogWalk()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 mb-6">
                 Generate Random Location

@@ -35,3 +35,14 @@ function generateDogWalk() {
     document.getElementById('dog-walk-type').textContent = location.type;
     document.getElementById('dog-walk-result').classList.remove('hidden');
 }
+
+// Reset all filters to checked
+function resetFilters() {
+    document.querySelectorAll('.distance-filter, .type-filter').forEach(checkbox => {
+        checkbox.checked = true;
+    });
+
+    // Hide any results
+    document.getElementById('dog-walk-result').classList.add('hidden');
+    document.getElementById('no-results').classList.add('hidden');
+}
