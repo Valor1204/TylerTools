@@ -85,6 +85,143 @@ function updateThisDayInHistory() {
     document.getElementById('history-years').textContent = `Based on ${matchingDays.length} shifts in years: ${years}`;
 }
 
+function renderHeatmapCalendar(yearData, selectedValue) {
+    const container = document.getElementById('heatmap-calendar');
+
+    // Get years to display based on selection
+    let years;
+    if (selectedValue === 'all') {
+        years = [...new Set(waitressData.map(d => d.date.getFullYear()))].sort((a, b) => a - b);
+    } else {
+        years = [parseInt(selectedValue)];
+    }
+
+    // Create a map of dates to tip amounts
+    const dateToTips = {};
+    waitressData.forEach(d => {
+        const dateKey = `${d.date.getFullYear()}-${d.date.getMonth()}-${d.date.getDate()}`;
+        dateToTips[dateKey] = d.tips;
+    });
+
+    // Calculate percentiles for color scaling
+    const allTips = waitressData.map(d => d.tips).sort((a, b) => a - b);
+    const getColor = (tips) => {
+        if (!tips) return '#f3f4f6'; // gray-100 for no data
+
+        // Calculate which quintile the tip amount falls into
+        const percentile = allTips.filter(t => t <= tips).length / allTips.length;
+
+        if (percentile < 0.2) return '#d1fae5'; // green-100
+        if (percentile < 0.4) return '#6ee7b7'; // green-300
+        if (percentile < 0.6) return '#10b981'; // green-500
+        if (percentile < 0.8) return '#059669'; // green-600
+        return '#047857'; // green-700
+    };
+
+    let html = '<div class="space-y-6">';
+
+    // Render each year
+    years.forEach(year => {
+        html += `<div>`;
+        html += `<div class="text-sm font-semibold text-gray-700 mb-2">${year}</div>`;
+        html += `<div class="inline-block">`;
+
+        // Month labels
+        html += `<div class="flex" style="margin-left: 28px; margin-bottom: 4px;">`;
+        const monthAbbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        for (let month = 0; month < 12; month++) {
+            const firstDayOfMonth = new Date(year, month, 1);
+            const dayOfWeek = firstDayOfMonth.getDay();
+            const weeksInMonth = Math.ceil((new Date(year, month + 1, 0).getDate() + dayOfWeek) / 7);
+            const monthWidth = (weeksInMonth * 12) + ((weeksInMonth - 1) * 1);
+            html += `<div class="text-xs text-gray-500" style="width: ${monthWidth}px; text-align: center;">${monthAbbr[month]}</div>`;
+        }
+        html += `</div>`;
+
+        // Calendar grid
+        html += `<div class="flex gap-2">`;
+
+        // Day of week labels
+        html += `<div class="flex flex-col gap-1 text-xs text-gray-500 justify-between" style="width: 20px;">`;
+        html += `<div style="height: 12px;"></div>`;
+        html += `<div style="height: 12px;">Mon</div>`;
+        html += `<div style="height: 12px;"></div>`;
+        html += `<div style="height: 12px;">Wed</div>`;
+        html += `<div style="height: 12px;"></div>`;
+        html += `<div style="height: 12px;">Fri</div>`;
+        html += `<div style="height: 12px;"></div>`;
+        html += `</div>`;
+
+        // Days grid
+        html += `<div class="flex gap-1">`;
+
+        // Start from the first day of the year
+        const firstDay = new Date(year, 0, 1);
+        let currentWeek = [];
+        let currentDay = new Date(year, 0, 1);
+
+        // Fill in empty cells before the first day
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            currentWeek.push({ empty: true });
+        }
+
+        // Fill in all days of the year
+        while (currentDay.getFullYear() === year) {
+            const dateKey = `${currentDay.getFullYear()}-${currentDay.getMonth()}-${currentDay.getDate()}`;
+            const tips = dateToTips[dateKey];
+            const color = getColor(tips);
+
+            currentWeek.push({
+                date: new Date(currentDay),
+                tips: tips,
+                color: color
+            });
+
+            // If Saturday (end of week), render the week
+            if (currentDay.getDay() === 6) {
+                // Render this week
+                html += `<div class="flex flex-col gap-1">`;
+                currentWeek.forEach(day => {
+                    if (day.empty) {
+                        html += `<div style="width: 12px; height: 12px;"></div>`;
+                    } else {
+                        const dateStr = `${day.date.getMonth() + 1}/${day.date.getDate()}/${day.date.getFullYear()}`;
+                        const tipStr = day.tips ? `$${day.tips.toFixed(2)}` : 'No data';
+                        html += `<div class="rounded-sm border border-gray-300" style="width: 12px; height: 12px; background-color: ${day.color};" title="${dateStr}: ${tipStr}"></div>`;
+                    }
+                });
+                html += `</div>`;
+                currentWeek = [];
+            }
+
+            currentDay.setDate(currentDay.getDate() + 1);
+        }
+
+        // Render any remaining days in the last incomplete week
+        if (currentWeek.length > 0) {
+            html += `<div class="flex flex-col gap-1">`;
+            currentWeek.forEach(day => {
+                if (day.empty) {
+                    html += `<div style="width: 12px; height: 12px;"></div>`;
+                } else {
+                    const dateStr = `${day.date.getMonth() + 1}/${day.date.getDate()}/${day.date.getFullYear()}`;
+                    const tipStr = day.tips ? `$${day.tips.toFixed(2)}` : 'No data';
+                    html += `<div class="rounded-sm border border-gray-300" style="width: 12px; height: 12px; background-color: ${day.color};" title="${dateStr}: ${tipStr}"></div>`;
+                }
+            });
+            html += `</div>`;
+        }
+
+        html += `</div>`; // End days grid
+        html += `</div>`; // End flex container
+        html += `</div>`; // End inline-block
+        html += `</div>`; // End year container
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
 function updateYearStats() {
     const yearSelect = document.getElementById('year-select');
     if (!yearSelect.value) {
@@ -228,6 +365,9 @@ function updateYearStats() {
 
     // Update charts with the filtered data
     updateCharts(yearData);
+
+    // Update heatmap calendar with the filtered data
+    renderHeatmapCalendar(yearData, selectedValue);
 }
 
 // Calculate linear regression for trend line
