@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Finder - My Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-gray-900">My Toolkit</h1>
+            <p class="text-gray-600 mt-1">A collection of useful small tools</p>
+        </div>
+        <nav class="border-t border-gray-200">
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="flex flex-wrap gap-2">
+                    <a href="index.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Home</a>
+                    <a href="dog-walk.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Dog Walking</a>
+                    <a href="data-viewer.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Data Highlights</a>
+                    <a href="waitress-stats.html" class="nav-link px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300">Waitress Stats</a>
+                    <a href="food-finder.html" class="nav-link px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">Food Finder</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Restaurant Finder</h2>
+            <p class="text-gray-600 mb-6">Filter by cuisine and meal time, then click the button to get a random restaurant suggestion!</p>
+
+            <!-- Filters -->
+            <div class="mb-6 p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-lg border border-orange-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-gray-900 text-lg">🍽️ Filter Your Options</h3>
+                    <button onclick="resetFilters()" class="text-sm text-orange-600 hover:text-orange-800 font-medium">
+                        Reset All
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Cuisine Filter -->
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="block text-sm font-medium text-gray-700">Cuisine Type</label>
+                            <button onclick="unselectAllCuisine()" class="text-xs text-orange-600 hover:text-orange-800 font-medium">
+                                Unselect All
+                            </button>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Mexican" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌮</span>
+                                    <span class="filter-text">Mexican</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Italian" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🍝</span>
+                                    <span class="filter-text">Italian</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="American" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🍔</span>
+                                    <span class="filter-text">American</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Indian" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🍛</span>
+                                    <span class="filter-text">Indian</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Asian" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🍜</span>
+                                    <span class="filter-text">Asian</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Pizza" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🍕</span>
+                                    <span class="filter-text">Pizza</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Mediterranean" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🐟</span>
+                                    <span class="filter-text">Mediterranean</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Latin American" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🫔</span>
+                                    <span class="filter-text">Latin American</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Fusion" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌏</span>
+                                    <span class="filter-text">Fusion</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="cuisine-filter hidden" value="Café" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">☕</span>
+                                    <span class="filter-text">Café</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Meal Time Filter -->
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="block text-sm font-medium text-gray-700">Meal Time</label>
+                            <button onclick="unselectAllMealTime()" class="text-xs text-orange-600 hover:text-orange-800 font-medium">
+                                Unselect All
+                            </button>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="filter-option">
+                                <input type="checkbox" class="mealtime-filter hidden" value="breakfast" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌅</span>
+                                    <span class="filter-text">Breakfast</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="mealtime-filter hidden" value="lunch" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌤️</span>
+                                    <span class="filter-text">Lunch</span>
+                                </span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" class="mealtime-filter hidden" value="dinner" checked>
+                                <span class="filter-button">
+                                    <span class="filter-icon">🌙</span>
+                                    <span class="filter-text">Dinner</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .filter-option {
+                    display: block;
+                    cursor: pointer;
+                }
+
+                .filter-button {
+                    display: flex;
+                    align-items: center;
+                    padding: 0.75rem 1rem;
+                    background: white;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 0.5rem;
+                    transition: all 0.2s;
+                }
+
+                .filter-button:hover {
+                    border-color: #f97316;
+                    background: #fff7ed;
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+
+                .filter-icon {
+                    font-size: 1.25rem;
+                    margin-right: 0.75rem;
+                }
+
+                .filter-text {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: #374151;
+                }
+
+                input:checked + .filter-button {
+                    background: #f97316;
+                    border-color: #ea580c;
+                }
+
+                input:checked + .filter-button .filter-text {
+                    color: white;
+                }
+
+                input:checked + .filter-button {
+                    box-shadow: 0 4px 6px rgba(249, 115, 22, 0.3);
+                }
+            </style>
+
+            <button onclick="generateRestaurant()" class="px-6 py-3 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 mb-6">
+                Find Me a Restaurant
+            </button>
+
+            <div id="restaurant-result" class="hidden">
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-lg mb-2">Suggested Restaurant:</h3>
+                    <p id="restaurant-name" class="text-xl font-medium text-orange-900 mb-2"></p>
+                    <p id="restaurant-description" class="text-gray-700 mb-3"></p>
+                    <p class="text-sm text-gray-600">
+                        <span class="font-medium">Cuisine:</span> <span id="restaurant-cuisine"></span> |
+                        <span class="font-medium">Meal Times:</span> <span id="restaurant-mealtimes"></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- No results message -->
+            <div id="no-results" class="hidden">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <p class="text-yellow-800">No restaurants match your current filters. Try selecting more options!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-6xl mx-auto px-4 py-6 text-center text-gray-600 text-sm">
+            My Personal Toolkit • Built with ❤️
+        </div>
+    </footer>
+
+    <script src="data/restaurant-locations.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/food-finder.js"></script>
+    <script>
+        initNavigation('food-finder.html');
+    </script>
+</body>
+</html>
