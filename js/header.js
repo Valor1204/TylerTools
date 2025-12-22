@@ -11,7 +11,6 @@ function renderHeader(activePage) {
                     <div class="flex flex-wrap gap-2">
                         <a href="index.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'index.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Home</a>
                         <a href="dog-walk.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'dog-walk.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Dog Walking</a>
-                        <a href="data-viewer.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'data-viewer.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Data Highlights</a>
                         <a href="waitress-stats.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'waitress-stats.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Waitress Stats</a>
                         <a href="food-finder.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'food-finder.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Food Finder</a>
                     </div>

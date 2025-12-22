@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tyler's Tools</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <script>renderHeader('index.html');</script>
@@ -22,11 +27,6 @@
                     <p class="text-gray-600 text-sm">Get random suggestions for nearby places to walk your dog</p>
                 </a>
 
-                <a href="data-viewer.html" class="border border-gray-200 rounded-lg p-4 hover:border-blue-400 cursor-pointer transition-colors">
-                    <h3 class="font-semibold text-lg mb-2">📊 Data Highlights</h3>
-                    <p class="text-gray-600 text-sm">Click through and explore data highlights</p>
-                </a>
-
                 <a href="waitress-stats.html" class="border border-gray-200 rounded-lg p-4 hover:border-blue-400 cursor-pointer transition-colors">
                     <h3 class="font-semibold text-lg mb-2">💰 Waitress Stats</h3>
                     <p class="text-gray-600 text-sm">Track and analyze waitressing performance over time</p>
@@ -40,16 +40,10 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
-        <div class="max-w-6xl mx-auto px-4 py-6 text-center text-gray-600 text-sm">
-            My Personal Toolkit • Built with ❤️
-        </div>
-    </footer>
-
     <script src="js/navigation.js"></script>
     <script>
         initNavigation('index.html');
+        renderFooter();
     </script>
 </body>
 </html>
