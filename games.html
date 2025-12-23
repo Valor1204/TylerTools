@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Tyler's Tools</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <script>renderHeader('games.html');</script>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Games</h2>
+            <p class="text-gray-600 mb-6">Take a break and play some games!</p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <a href="rams-tictactoe.html" class="border border-gray-200 rounded-lg p-4 hover:border-blue-400 cursor-pointer transition-colors">
+                    <h3 class="font-semibold text-lg mb-2">🐏 Rams Tic Tac Toe</h3>
+                    <p class="text-gray-600 text-sm">Play tic tac toe with LA Rams themed pieces - Ram vs Football!</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    <script>
+        initNavigation('games.html');
+        renderFooter();
+    </script>
+</body>
+</html>

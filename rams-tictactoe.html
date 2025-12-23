@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rams Tic Tac Toe</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <style>
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #003594 0%, #0066CC 100%);
+            border: 3px solid #FFD100;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cell:hover:not(.taken) {
+            background: linear-gradient(135deg, #0066CC 0%, #003594 100%);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .cell.taken {
+            cursor: not-allowed;
+        }
+
+        .cell.winner {
+            background: linear-gradient(135deg, #FFD100 0%, #FFA500 100%);
+            animation: pulse 0.6s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .status-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            min-height: 2.5rem;
+        }
+
+        .rams-blue {
+            color: #003594;
+        }
+
+        .rams-yellow {
+            color: #FFD100;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <script>renderHeader('rams-tictactoe.html');</script>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">LA Rams Tic Tac Toe</h2>
+            <p class="text-gray-600 mb-6">Play as the Ram 🐏 or the Football 🏈!</p>
+
+            <div class="max-w-2xl mx-auto">
+                <!-- Status Display -->
+                <div id="status" class="status-message rams-blue">
+                    Ram's Turn 🐏
+                </div>
+
+                <!-- Game Board -->
+                <div class="game-board mb-6">
+                    <div class="cell" data-index="0" onclick="makeMove(0)"></div>
+                    <div class="cell" data-index="1" onclick="makeMove(1)"></div>
+                    <div class="cell" data-index="2" onclick="makeMove(2)"></div>
+                    <div class="cell" data-index="3" onclick="makeMove(3)"></div>
+                    <div class="cell" data-index="4" onclick="makeMove(4)"></div>
+                    <div class="cell" data-index="5" onclick="makeMove(5)"></div>
+                    <div class="cell" data-index="6" onclick="makeMove(6)"></div>
+                    <div class="cell" data-index="7" onclick="makeMove(7)"></div>
+                    <div class="cell" data-index="8" onclick="makeMove(8)"></div>
+                </div>
+
+                <!-- Score Display -->
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-600 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🐏</div>
+                        <div class="text-2xl font-bold text-blue-600" id="ram-score">0</div>
+                        <div class="text-sm text-gray-600">Ram Wins</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-400 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🤝</div>
+                        <div class="text-2xl font-bold text-gray-600" id="tie-score">0</div>
+                        <div class="text-sm text-gray-600">Ties</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-600 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🏈</div>
+                        <div class="text-2xl font-bold text-yellow-600" id="football-score">0</div>
+                        <div class="text-sm text-gray-600">Football Wins</div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex justify-center gap-4">
+                    <button onclick="resetGame()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                        New Game
+                    </button>
+                    <button onclick="resetScores()" class="px-6 py-3 bg-yellow-500 text-gray-900 rounded-lg font-medium hover:bg-yellow-600 transition-colors">
+                        Reset Scores
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/rams-tictactoe.js"></script>
+    <script>
+        initNavigation('rams-tictactoe.html');
+        renderFooter();
+    </script>
+</body>
+</html>

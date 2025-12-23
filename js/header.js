@@ -13,6 +13,8 @@ function renderHeader(activePage) {
                         <a href="dog-walk.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'dog-walk.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Dog Walking</a>
                         <a href="waitress-stats.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'waitress-stats.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Waitress Stats</a>
                         <a href="food-finder.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'food-finder.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Food Finder</a>
+                        <a href="dinner-generator.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'dinner-generator.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Dinner Generator</a>
+                        <a href="games.html" class="nav-link px-4 py-2 rounded-lg ${activePage === 'games.html' || activePage === 'rams-tictactoe.html' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} font-medium">Games</a>
                     </div>
                 </div>
             </nav>

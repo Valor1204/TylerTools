@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinner Generator</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <script>renderHeader('dinner-generator.html');</script>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Dinner Generator</h2>
+            <p class="text-gray-600 mb-6">Select how many meals you need for the week and get random dinner ideas!</p>
+
+            <!-- Meal Count Selector -->
+            <div class="mb-6 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                <div class="mb-4">
+                    <h3 class="font-semibold text-gray-900 text-lg mb-4">🍳 How many meals?</h3>
+                    <div class="flex items-center gap-4">
+                        <label for="meal-count" class="text-sm font-medium text-gray-700">Number of meals:</label>
+                        <select id="meal-count" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 font-medium">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="generateDinners()" class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 mb-6">
+                Generate Dinner Ideas
+            </button>
+
+            <div id="dinner-results" class="hidden">
+                <div class="bg-white rounded-lg">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-900">Your Dinner Plan:</h3>
+                    <div id="dinner-list" class="space-y-3">
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="data/dinner-ideas.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/dinner-generator.js"></script>
+    <script>
+        initNavigation('dinner-generator.html');
+        renderFooter();
+    </script>
+</body>
+</html>
